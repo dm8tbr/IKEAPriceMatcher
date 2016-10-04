@@ -1,0 +1,2 @@
+#name|article number|price|purchase date|last check date
+FRIHETEN|50242997|599.00|2016-10-02 20:40:00|2016-10-04 00:03:24
