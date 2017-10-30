@@ -11,7 +11,7 @@ file_name = 'ikea_test.txt'
 s = '|'
 data_num = 5
 price_tag_number = 6
-url = 'http://www.ikea.com/us/en/catalog/products/'
+url = 'http://www.ikea.com/fi/fi/catalog/products/'
 username = 'your_email@email.com'
 password = 'your_passwd'
 
