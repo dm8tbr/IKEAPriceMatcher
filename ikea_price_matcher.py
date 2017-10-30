@@ -54,6 +54,7 @@ def findPrice(name, a_number, p_price):
                     print 'Has an empty price tag'
     if min_price != p_price:
         res_str = '%s has a lower price than your purchase! Purchase Price: %.2f Current Price %.2f' % (name, p_price, min_price)
+        sendEmail(res_str)
     else:
         res_str = '%s has the same price as your purchase.' % name
     return res_str
