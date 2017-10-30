@@ -12,18 +12,17 @@ s = '|'
 data_num = 5
 price_tag_number = 6
 url = 'http://www.ikea.com/fi/fi/catalog/products/'
-username = 'your_email@email.com'
-password = 'your_passwd'
 sender = 'ikeabot@example.org'
+recipient = 'your_email@example.com'
 
 def sendEmail(msg_string):
     msg = MIMEText(msg_string)
-    msg['To'] = email.utils.formataddr(('Recipient', username))
+    msg['To'] = email.utils.formataddr(('Recipient', recipient))
     msg['From'] = email.utils.formataddr(('IKEA Price Watch Bot', sender))
     msg['Subject'] = 'Price matching for your ikea purchase.'
 
     server = smtplib.SMTP('localhost:25')
-    server.sendmail(sender, username, msg.as_string())
+    server.sendmail(sender, recipient, msg.as_string())
     server.quit()
 
 def findPrice(name, a_number, p_price):
