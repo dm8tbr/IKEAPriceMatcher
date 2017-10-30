@@ -39,7 +39,7 @@ def findPrice(name, a_number, p_price):
     res_str = ''
     for i in range(price_tag_number):
         search_id = 'price' + str(i + 1)
-        price_tag = soup.find(id=search_id)       
+        price_tag = soup.find(id=search_id) 
         if price_tag != None:
             price_tag = price_tag.find_all(text=lambda t: not isinstance(t, Comment))
             for price_tag_item in price_tag:
@@ -90,3 +90,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
