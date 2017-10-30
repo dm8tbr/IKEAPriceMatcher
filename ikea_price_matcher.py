@@ -16,16 +16,12 @@ username = 'your_email@email.com'
 password = 'your_passwd'
 
 def sendEmail(msg_string):
-    '''need to use a better method with strong credentials support to send emails'''
     msg = MIMEText(msg_string)
     msg['To'] = email.utils.formataddr(('Recipient', username))
     msg['From'] = email.utils.formataddr(('Author', username))
     msg['Subject'] = 'Price matching for your ikea purchase.'
 
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.ehlo()
-    server.starttls()
-    server.login(username, password)
+    server = smtplib.SMTP('localhost:25')
     server.sendmail(username, username, msg.as_string())
     server.quit()
 
