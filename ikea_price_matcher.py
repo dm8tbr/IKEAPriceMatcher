@@ -4,14 +4,17 @@ import datetime
 import urllib
 import email.utils
 import smtplib
+import locale
 from email.mime.text import MIMEText
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
 
 file_name = 'ikea_test.txt'
 s = '|'
 data_num = 5
 price_tag_number = 6
 url = 'http://www.ikea.com/fi/fi/catalog/products/'
+locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_NUMERIC, "en_DK.UTF-8")
 sender = 'ikeabot@example.org'
 recipient = 'your_email@example.com'
 
@@ -38,15 +41,17 @@ def findPrice(name, a_number, p_price):
         search_id = 'price' + str(i + 1)
         price_tag = soup.find(id=search_id)       
         if price_tag != None:
-            price_unicode = price_tag.string
-            price_unicode_str = unicode(price_unicode).strip('\r\n\t$ ')
-            try:
-                price = float(price_unicode_str)
-                print 'Got a price %.2f' % price
-                if price < min_price:
-                    min_price = price
-            except ValueError:
-                print 'Has an empty price tag'
+            price_tag = price_tag.find_all(text=lambda t: not isinstance(t, Comment))
+            for price_tag_item in price_tag:
+                price_unicode = str(price_tag_item)
+                price_unicode_str = unicode(price_unicode).strip('\r\n\t$ ')
+                try:
+                    price = locale.atof(price_unicode_str)
+                    print 'Got a price %.2f' % price
+                    if price < min_price:
+                        min_price = price
+                except ValueError:
+                    print 'Has an empty price tag'
     if min_price != p_price:
         res_str = '%s has a lower price than your purchase! Purchase Price: %.2f Current Price %.2f' % (name, p_price, min_price)
     else:
